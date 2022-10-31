@@ -10,24 +10,33 @@ namespace MetaMaui.ViewModels
 {
     public class SourcesViewModel : ObservableObject
     {
-        public ObservableCollectionEx<string> Sources { get; private set;}
+        public ObservableCollectionEx<CoveoSdk.Models.SourceModel> Sources { get; private set;}
         public string PageTitle => "Oh wow, this is binding! Here are your sources.";
 
-        public SourcesViewModel()
+        private readonly CoveoSdk.Sources _sourceClient;
+        private bool isInitialized = false;
+
+        public SourcesViewModel(CoveoSdk.Sources sourcesClient)
         {
-            Sources = new ObservableCollectionEx<string>();
+            Sources = new ObservableCollectionEx<CoveoSdk.Models.SourceModel>();
+            _sourceClient = sourcesClient;
         }
 
         public async Task InitializeAsync()
         {
-            await Sources.ReloadDataAsync(
-                async innerList =>
-                {
-                    Sources.Add("AAA");
-                    await Task.Delay(TimeSpan.FromMilliseconds(50));
-                    Sources.Add("SpaceJam");
-                    await Task.Delay(TimeSpan.FromMilliseconds(50));
-                });
+            if (!isInitialized)
+            {
+                await Sources.ReloadDataAsync(
+                    async innerList =>
+                    {
+                        var srcs = await _sourceClient.GetsourcesAsync();
+                        foreach (var src in srcs)
+                        {
+                            Sources.Add(src);
+                        }
+                    });
+                isInitialized = true;
+            }
         }
     }
 }
