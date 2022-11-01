@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MetaMaui.Views.SettingsView"
+             Title="SettingsView">
+    <VerticalStackLayout>
+        <HorizontalStackLayout Spacing="30">
+            <Label Text="Organization Id" />
+            <Entry Text="{Binding OrganizationId}" IsSpellCheckEnabled="False" MinimumWidthRequest="300" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="30">
+            <Label Text="API key" />
+            <Entry Text="{Binding ApiKey}" IsSpellCheckEnabled="False" MinimumWidthRequest="300" />
+        </HorizontalStackLayout>
+        <Label Text="The application must be restarted after modifying the settings." FontAttributes="Bold" />
+    </VerticalStackLayout>
+</ContentPage>

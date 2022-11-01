@@ -9,6 +9,12 @@
 
     <TabBar>
         <ShellContent
+            Title="Settings"
+            Route="Settings"
+            ContentTemplate="{DataTemplate views:SettingsView}"
+            Icon="icon_notes" />
+
+        <ShellContent
             Title="Home"
             Route="Main"
             ContentTemplate="{DataTemplate local:MainPage}"
