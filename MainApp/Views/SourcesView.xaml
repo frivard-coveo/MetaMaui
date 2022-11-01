@@ -2,18 +2,38 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MetaMaui.Views.SourcesView"
+             xmlns:conv="using:MetaMaui.Converters"
              Title="Sources">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:IsNotNullConverter x:Key="IsNotNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout>
         <Label 
             Text="{Binding PageTitle}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Picker x:Name="sourcepicker" ItemsSource="{Binding Sources}" ItemDisplayBinding="{Binding name}" SelectedItem="{Binding SelectedSource}" HorizontalOptions="Center">
+        <Picker x:Name="sourcepicker"
+                ItemsSource="{Binding Sources}"
+                ItemDisplayBinding="{Binding name}"
+                SelectedItem="{Binding SelectedSource, Mode=TwoWay}"
+                HorizontalOptions="Center">
             
         </Picker>
 
         <Label 
-            Text="{Binding Source={x:Reference sourcepicker}, Path=SelectedItem.id, StringFormat='Thank you for choosing {0}'}"
+            Text="{Binding SelectedSource.id, StringFormat='Thank you for choosing {0}'}"
+            IsVisible="{Binding SelectedSource, Converter={StaticResource IsNotNullConverter}}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button
+            Text="{Binding SelectedSource.id, StringFormat='View metadata for {0}'}"
+            IsVisible="{Binding SelectedSource, Converter={StaticResource IsNotNullConverter}}"
+            Command="{Binding NavigateToMetadata}"
+            CommandParameter="{Binding SelectedSource}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 

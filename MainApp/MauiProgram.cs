@@ -1,4 +1,7 @@
 ﻿using CoveoSdk;
+using MetaMaui.Services;
+using MetaMaui.Services.Metadata;
+using Microsoft.Maui.Hosting;
 
 namespace MetaMaui;
 
@@ -30,6 +33,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
         builder.Services.AddCoveoSdk(Preferences.Get(PrefIdOrgId, ""), Preferences.Get(PrefIdToken, ""));
+        builder.Services.AddSingleton<INavigationService, MauiNavigationService>();
+        builder.Services.AddTransient<IMetadataService, MetadataService>();
         builder.RegisterViewModels();
         builder.RegisterViews();
 
@@ -39,12 +44,14 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<ViewModels.SourcesViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ViewModels.MetadataViewModel>();
         return mauiAppBuilder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<Views.SourcesView>();
+        mauiAppBuilder.Services.AddSingleton<Views.MetadataView>();
         return mauiAppBuilder;
     }
 }

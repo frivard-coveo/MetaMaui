@@ -1,11 +1,13 @@
-﻿namespace MetaMaui;
+﻿using MetaMaui.Services;
+
+namespace MetaMaui;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
+    public App(INavigationService navigationService)
+    {
+        InitializeComponent();
 
-		MainPage = new AppShell();
-	}
+        MainPage = new AppShell(navigationService);
+    }
 }

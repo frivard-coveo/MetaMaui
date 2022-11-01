@@ -10,11 +10,13 @@
     <TabBar>
         <ShellContent
             Title="Home"
+            Route="Main"
             ContentTemplate="{DataTemplate local:MainPage}"
             Icon="icon_notes" />
 
         <ShellContent
             Title="Sources"
+            Route="Sources"
             ContentTemplate="{DataTemplate views:SourcesView}"
             Icon="icon_about" />
     </TabBar>
