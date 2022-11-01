@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MetaMaui.Views.MetadataView"
+             xmlns:conv="using:MetaMaui.Converters"
+             Title="MetadataView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:OriginListConverter x:Key="OriginListConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <ListView ItemsSource="{Binding AllMetas}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                           
+                            <Label Grid.Column="0"
+                           Text="{Binding Key}"
+                           FontAttributes="Bold" />
+                            <Label Grid.Column="1"
+                           Text="{Binding Origins, Converter={StaticResource OriginListConverter}}"
+                           FontAttributes="Italic"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>

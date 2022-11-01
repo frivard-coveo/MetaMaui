@@ -1,5 +1,6 @@
 ﻿using CoveoSdk;
 using MetaMaui.Services;
+using MetaMaui.Services.Metadata;
 using Microsoft.Maui.Hosting;
 
 namespace MetaMaui;
@@ -33,6 +34,7 @@ public static class MauiProgram
             });
         builder.Services.AddCoveoSdk(Preferences.Get(PrefIdOrgId, ""), Preferences.Get(PrefIdToken, ""));
         builder.Services.AddSingleton<INavigationService, MauiNavigationService>();
+        builder.Services.AddTransient<IMetadataService, MetadataService>();
         builder.RegisterViewModels();
         builder.RegisterViews();
 

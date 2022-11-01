@@ -1,10 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetaMaui.ViewModels
 {
@@ -12,6 +6,16 @@ namespace MetaMaui.ViewModels
     {
         public ObservableCollectionEx<CoveoSdk.Models.SourceModel> Sources { get; private set;}
         public string PageTitle => "Oh wow, this is binding! Here are your sources.";
+
+        private CoveoSdk.Models.SourceModel _selectedSource;
+        public CoveoSdk.Models.SourceModel SelectedSource
+        {
+            get => _selectedSource;
+            set
+            {
+                SetProperty(ref _selectedSource, value);
+            }
+        }
 
         private readonly CoveoSdk.Sources _sourceClient;
         private bool isInitialized = false;
@@ -26,15 +30,7 @@ namespace MetaMaui.ViewModels
         {
             if (!isInitialized)
             {
-                await Sources.ReloadDataAsync(
-                    async innerList =>
-                    {
-                        var srcs = await _sourceClient.GetsourcesAsync();
-                        foreach (var src in srcs)
-                        {
-                            Sources.Add(src);
-                        }
-                    });
+                Sources.ReloadData(await _sourceClient.GetsourcesAsync());
                 isInitialized = true;
             }
         }

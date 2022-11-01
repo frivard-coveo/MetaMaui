@@ -9,7 +9,6 @@ public class Sources
 {
     public static JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions() { DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
     private readonly HttpClient _httpClient;
-    private readonly string _orgId;
 
     static Sources()
     {
@@ -28,7 +27,6 @@ public class Sources
     public Sources(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _orgId = "connectorsteamtestsmf76kcam";
     }
 
     public async Task<IReadOnlyList<Models.SourceModel>> GetsourcesAsync(CancellationToken ct = default)

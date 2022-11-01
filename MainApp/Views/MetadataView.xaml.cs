@@ -2,9 +2,9 @@ using MetaMaui.ViewModels;
 
 namespace MetaMaui.Views;
 
-public partial class SourcesView : ContentPage
+public partial class MetadataView : ContentPage
 {
-    public SourcesView(SourcesViewModel viewModel)
+    public MetadataView(MetadataViewModel viewModel)
     {
         BindingContext = viewModel;
         InitializeComponent();
@@ -14,9 +14,9 @@ public partial class SourcesView : ContentPage
     {
         base.OnAppearing();
 
-        if (BindingContext is SourcesViewModel svm)
+        if (BindingContext is MetadataViewModel vm)
         {
-            await svm.InitializeAsync();
+            await vm.InitializeAsync();
         }
     }
 }
