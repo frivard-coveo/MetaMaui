@@ -2,6 +2,8 @@
 using MetaMaui.Services;
 using MetaMaui.Services.Metadata;
 using Microsoft.Maui.Hosting;
+using Syncfusion.Maui.Core.Hosting;
+using Syncfusion.Maui.DataGrid.Hosting;
 
 namespace MetaMaui;
 
@@ -37,6 +39,8 @@ public static class MauiProgram
         builder.Services.AddTransient<IMetadataService, MetadataService>();
         builder.RegisterViewModels();
         builder.RegisterViews();
+        builder.ConfigureSyncfusionCore();
+        builder.ConfigureSyncfusionDataGrid();
 
         return builder.Build();
     }
