@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MetaMaui.Converters
 {
-    public class OriginListConverter : IValueConverter
+    public class CollectionToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if(value is ICollection<string> origins && origins.Count > 0)
             {
-                return string.Join(",", origins);
+                return string.Join(", ", origins);
             }
             else
             {
