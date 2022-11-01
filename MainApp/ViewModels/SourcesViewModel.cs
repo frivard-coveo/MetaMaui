@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MetaMaui.Services;
+using MetaMaui.Services.Settings;
 using System.Windows.Input;
 
 namespace MetaMaui.ViewModels
@@ -16,20 +17,21 @@ namespace MetaMaui.ViewModels
             set
             {
                 SetProperty(ref _selectedSource, value);
+                _settingsService.SourceId = value.id;
             }
         }
 
         public ICommand NavigateToMetadata { get; private set; }
 
         private readonly CoveoSdk.Sources _sourceClient;
-        private readonly INavigationService _navigationService;
+        private readonly ISettingsService _settingsService;
         private bool isInitialized = false;
 
-        public SourcesViewModel(CoveoSdk.Sources sourcesClient, INavigationService navigationService)
+        public SourcesViewModel(CoveoSdk.Sources sourcesClient, INavigationService navigationService, ISettingsService settingsService)
         {
             Sources = new ObservableCollectionEx<CoveoSdk.Models.SourceModel>();
             _sourceClient = sourcesClient;
-            _navigationService = navigationService;
+            _settingsService = settingsService;
             NavigateToMetadata = new Command(obj =>
             {
                 if(obj is CoveoSdk.Models.SourceModel source)
@@ -46,7 +48,24 @@ namespace MetaMaui.ViewModels
                 Sources.ReloadData(await _sourceClient.GetsourcesAsync());
                 if (Sources.Any())
                 {
-                    SelectedSource = Sources.First();
+                    // try to find the previously selected source
+                    string previousId = _settingsService.SourceId;
+                    if (!string.IsNullOrEmpty(previousId))
+                    {
+                        var previouslySelected = Sources.FirstOrDefault(src => string.Equals(src.id, previousId, StringComparison.Ordinal));
+                        if(previouslySelected != null)
+                        {
+                            SelectedSource = previouslySelected;
+                        }
+                        else
+                        {
+                            SelectedSource = Sources.First();
+                        }
+                    }
+                    else
+                    {
+                        SelectedSource = Sources.First();
+                    }
                 }
                 isInitialized = true;
             }

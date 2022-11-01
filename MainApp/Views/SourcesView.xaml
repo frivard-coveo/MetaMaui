@@ -11,24 +11,16 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding PageTitle}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Spacing="30">
         <Picker x:Name="sourcepicker"
                 ItemsSource="{Binding Sources}"
                 ItemDisplayBinding="{Binding name}"
                 SelectedItem="{Binding SelectedSource, Mode=TwoWay}"
-                HorizontalOptions="Center">
+                HorizontalOptions="Center"
+                Title="Select a source">
             
         </Picker>
 
-        <Label 
-            Text="{Binding SelectedSource.id, StringFormat='Thank you for choosing {0}'}"
-            IsVisible="{Binding SelectedSource, Converter={StaticResource IsNotNullConverter}}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
         <Button
             Text="{Binding SelectedSource.id, StringFormat='View metadata for {0}'}"
             IsVisible="{Binding SelectedSource, Converter={StaticResource IsNotNullConverter}}"
