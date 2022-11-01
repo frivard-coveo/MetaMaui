@@ -1,4 +1,6 @@
 ﻿using CoveoSdk;
+using MetaMaui.Services;
+using Microsoft.Maui.Hosting;
 
 namespace MetaMaui;
 
@@ -30,6 +32,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
         builder.Services.AddCoveoSdk(Preferences.Get(PrefIdOrgId, ""), Preferences.Get(PrefIdToken, ""));
+        builder.Services.AddSingleton<INavigationService, MauiNavigationService>();
         builder.RegisterViewModels();
         builder.RegisterViews();
 
