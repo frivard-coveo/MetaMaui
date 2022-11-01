@@ -27,6 +27,6 @@ public partial class AppShell : Shell
 
     private static void InitializeRouting()
     {
-
+        Routing.RegisterRoute("Metadata", typeof(MetadataView));
     }
 }

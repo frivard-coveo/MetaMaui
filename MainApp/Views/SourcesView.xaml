@@ -32,6 +32,8 @@
         <Button
             Text="{Binding SelectedSource.id, StringFormat='View metadata for {0}'}"
             IsVisible="{Binding SelectedSource, Converter={StaticResource IsNotNullConverter}}"
+            Command="{Binding NavigateToMetadata}"
+            CommandParameter="{Binding SelectedSource}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 

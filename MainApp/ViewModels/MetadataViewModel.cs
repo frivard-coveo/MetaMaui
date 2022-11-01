@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MetaMaui.ViewModels
 {
-    [QueryProperty(nameof(SourceName), "SourceName")]
+    [QueryProperty(nameof(Source), "Source")]
     public class MetadataViewModel : ObservableObject
     {
-        public string SourceName { get; set; }
+        public CoveoSdk.Models.SourceModel Source { get; set; }
         public ObservableCollectionEx<Models.SourceMetadataModel> AllMetas { get; private set;}
 
         private readonly IMetadataService _metadataService;
@@ -26,9 +26,9 @@ namespace MetaMaui.ViewModels
 
         public async Task InitializeAsync()
         {
-            if (!isInitialized)
+            if (!isInitialized && Source != null)
             {
-                AllMetas.ReloadData(await _metadataService.GetSourceMetadataAsync(SourceName));
+                AllMetas.ReloadData(await _metadataService.GetSourceMetadataAsync(Source.name));
                 isInitialized = true;
             }
         }

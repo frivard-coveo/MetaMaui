@@ -92,7 +92,7 @@ namespace CoveoSdk
                 { "dataStream", stream},
                 { "viewAllContent", viewAllContent.ToString()} 
             };
-            var uri = new Uri(QueryHelpers.AddQueryString("v2", param), UriKind.Relative);
+            var uri = new Uri(QueryHelpers.AddQueryString("v2/datastream", param), UriKind.Relative);
             var response = await _httpClient.GetAsync(uri, ct);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsByteArrayAsync();

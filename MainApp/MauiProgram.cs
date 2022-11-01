@@ -44,12 +44,14 @@ public static class MauiProgram
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<ViewModels.SourcesViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ViewModels.MetadataViewModel>();
         return mauiAppBuilder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
     {
         mauiAppBuilder.Services.AddSingleton<Views.SourcesView>();
+        mauiAppBuilder.Services.AddSingleton<Views.MetadataView>();
         return mauiAppBuilder;
     }
 }

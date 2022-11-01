@@ -48,8 +48,11 @@ namespace MetaMaui.Services.Metadata
                                     existingRecord = new SourceMetadataModel() { Key = kvps.Key, IsMapped = false, Origins = new List<string>(), TopValues = new List<string>() };
                                     metaList.Add(existingRecord);
                                 }
-                                existingRecord.Origins.Add(origin.Origin);
-                                foreach(var val in kvps.Value)
+                                if(!existingRecord.Origins.Any(o => string.Equals(o, origin.Origin, StringComparison.Ordinal)))
+                                {
+                                    existingRecord.Origins.Add(origin.Origin);
+                                }
+                                foreach (var val in kvps.Value)
                                 {
                                     existingRecord.TopValues.Add(val.ToString());
                                 }
@@ -60,7 +63,8 @@ namespace MetaMaui.Services.Metadata
                 catch (System.Text.Json.JsonException)
                 {
                     Console.WriteLine("Unable to deserialize the answer. The json string was:");
-                    Console.WriteLine(System.Text.UTF8Encoding.UTF8.GetString(data));
+                    string problematicData = System.Text.UTF8Encoding.UTF8.GetString(data);
+                    Console.WriteLine(problematicData);
                     throw;
                 }
             }
